@@ -1,0 +1,33 @@
+version: "2.3"
+services:
+  jupyter:
+    build:
+      context: ./
+      dockerfile: ./docker/${CONTEXT}.Dockerfile
+    image: ${PROJECT_NAME}-${CONTEXT}
+    container_name: ${PROJECT_NAME}-${CONTEXT}
+    ports:
+      - ${JUPYTER_PORT}:8888
+    volumes:
+      - ./:/analysis
+      # data dir
+      - ${DATA_DIR}:/analysis/input
+      # コンテナ再作成後も notebook の設定が残るように設定を保存するディレクトリを共有する
+      - ${PWD}/.jupyter/nbconfig:/home/penguin/.jupyter/nbconfig
+
+    environment:
+      # workingdir に python の path を通すことで
+      # プロジェクトルートに配置した自作のモジュールを import できるようにしている
+      - PYTHONPATH=/analysis
+    working_dir: /analysis
+    env_file:
+      - .env
+
+  docs:
+    build: ./docs
+    volumes:
+      - ./docs:/var/www/docs
+    tty: true
+    working_dir: /var/www/docs
+    ports:
+      - 4000:3000

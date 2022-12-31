@@ -1,0 +1,7 @@
+version: '2.3'
+services:
+  jupyter:
+    extends:
+      file: docker-compose.common.yml
+      service: jupyter
+

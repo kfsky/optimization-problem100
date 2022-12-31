@@ -1,0 +1,13 @@
+body {
+  font-family: ubuntu monospace;
+}
+
+pre,
+.CodeMirror pre,
+.prompt,
+div.output_area pre,
+.CodeMirror pre.CodeMirror-line,
+.completions select {
+  font-family: Menlo, "Ubuntu Mono", "Source Code Pro", Source Han Code JP, monospace;
+  font-size: 13px;
+}
